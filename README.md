@@ -20,6 +20,156 @@ You’ll simulate database-like behavior with in-memory Python class objects and
 
 This lab reinforces essential backend development skills including route design, data mutation, error handling, and RESTful conventions.
 
+## API Documentation
+
+The Event Management API provides full CRUD operations for managing events. All endpoints return JSON responses with appropriate HTTP status codes.
+
+### Base URL
+```
+http://localhost:5000
+```
+
+### Endpoints
+
+#### GET /events
+Retrieve all events.
+
+**Request:**
+```bash
+curl -X GET http://localhost:5000/events
+```
+
+**Response (200 OK):**
+```json
+[
+  {
+    "id": 1,
+    "title": "Tech Meetup"
+  },
+  {
+    "id": 2,
+    "title": "Python Workshop"
+  }
+]
+```
+
+#### GET /events/{id}
+Retrieve a specific event by ID.
+
+**Request:**
+```bash
+curl -X GET http://localhost:5000/events/1
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": 1,
+  "title": "Tech Meetup"
+}
+```
+
+**Error Response (404 Not Found):**
+```json
+{
+  "error": "Event not found"
+}
+```
+
+#### POST /events
+Create a new event.
+
+**Request:**
+```bash
+curl -X POST http://localhost:5000/events \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Hackathon"}'
+```
+
+**Response (201 Created):**
+```json
+{
+  "id": 3,
+  "title": "Hackathon"
+}
+```
+
+**Error Response (400 Bad Request):**
+```json
+{
+  "error": "Title is required"
+}
+```
+
+#### PATCH /events/{id}
+Update an existing event's title.
+
+**Request:**
+```bash
+curl -X PATCH http://localhost:5000/events/1 \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Advanced Tech Meetup"}'
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": 1,
+  "title": "Advanced Tech Meetup"
+}
+```
+
+**Error Response (404 Not Found):**
+```json
+{
+  "error": "Event not found"
+}
+```
+
+#### DELETE /events/{id}
+Delete an event.
+
+**Request:**
+```bash
+curl -X DELETE http://localhost:5000/events/2
+```
+
+**Response (204 No Content):**
+```
+(No content)
+```
+
+**Error Response (404 Not Found):**
+```json
+{
+  "error": "Event not found"
+}
+```
+
+### Data Model
+
+**Event Object:**
+```json
+{
+  "id": 1,
+  "title": "Tech Meetup"
+}
+```
+
+- `id` (integer): Unique identifier for the event
+- `title` (string): Event title/name
+
+### Running the API
+
+1. Start the server:
+```bash
+pipenv run python app.py
+```
+
+2. The API will be available at `http://localhost:5000`
+
+3. Test endpoints using curl, Postman, or your browser
+
 ## Setup Instructions
 
 ### Fork and Clone the Repository
